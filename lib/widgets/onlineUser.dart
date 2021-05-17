@@ -16,7 +16,7 @@ class OnlineUser extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(shape: BoxShape.circle),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.profileUrl),
+            backgroundImage: NetworkImage(user.profileUrl!),
           ),
         ),
         SizedBox(width: 20),
@@ -25,7 +25,7 @@ class OnlineUser extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                '${user.name}${user.uuid == AppData.currentUser.uuid ? '(You)' : ''}',
+                '${user.name}${user.uuid == AppData.currentUser!.uuid ? '(You)' : ''}',
                 style: TextStyle(fontWeight: FontWeight.bold)),
           ],
         )

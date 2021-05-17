@@ -13,7 +13,7 @@ class DrawerListItem extends StatelessWidget {
     return ListTile(
       onTap: () {
         Navigator.of(context)
-            .pushReplacementNamed(Conversation.routeName, arguments: space.id);
+            .pushNamed(Conversation.routeName, arguments: space.id);
       },
       title: Row(
         children: [
@@ -24,7 +24,7 @@ class DrawerListItem extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(space.custom['thumb']),
+              backgroundImage: NetworkImage(space.custom!['thumb']),
             ),
           ),
           SizedBox(width: 5),

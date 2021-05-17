@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../providers/app_data.dart';
 
 class TypingIndicator extends StatefulWidget {
   final String message;
@@ -22,7 +23,7 @@ class _TypingIndicatorState extends State<TypingIndicator> {
   void didUpdateWidget(covariant TypingIndicator oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.message.isNotEmpty) _visible = true;
-    Timer(Duration(seconds: 10), _hideMessage);
+    Timer(Duration(seconds: AppData.INDICATORTIMEOUT - 1), _hideMessage);
   }
 
   _hideMessage() {
@@ -37,7 +38,7 @@ class _TypingIndicatorState extends State<TypingIndicator> {
     return _visible
         ? Text(widget.message,
             style:
-                Theme.of(context).textTheme.caption.apply(color: Colors.grey))
+                Theme.of(context).textTheme.caption!.apply(color: Colors.grey))
         : Container();
   }
 }

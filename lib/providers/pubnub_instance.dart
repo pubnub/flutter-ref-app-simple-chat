@@ -1,24 +1,27 @@
 import 'dart:async';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+
+import 'package:pubnub/networking.dart';
 import 'package:pubnub/pubnub.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'app_data.dart';
 
 class PubNubInstance {
-  PubNub _pubnub;
-  Subscription _subscription;
+  late PubNub _pubnub;
+  late Subscription _subscription;
 
   PubNub get instance => _pubnub;
 
   Subscription get subscription => _subscription;
 
-  static Timer _heartbeatTimer;
+  static Timer? _heartbeatTimer;
 
   PubNubInstance() {
     _pubnub = PubNub(
+        networking: NetworkingModule(retryPolicy: RetryPolicy.exponential()),
         defaultKeyset: Keyset(
-            subscribeKey: DotEnv.env['PUBNUB_SUBSCRIBE_KEY'],
-            publishKey: DotEnv.env['PUBNUB_PUBLISH_KEY'],
-            uuid: UUID(AppData.currentUser.uuid)));
+            subscribeKey: dotenv.env['PUBNUB_SUBSCRIBE_KEY']!,
+            publishKey: dotenv.env['PUBNUB_PUBLISH_KEY'],
+            uuid: UUID(AppData.currentUser!.uuid)));
     _pubnub.channelGroups
         .addChannels(AppData.CHANNELGROUP, AppData.CHANNELS)
         .then((result) {});
@@ -42,8 +45,8 @@ class PubNubInstance {
   }
 
   stopHeartbeats() {
-    if (_heartbeatTimer != null && _heartbeatTimer.isActive) {
-      _heartbeatTimer.cancel();
+    if (_heartbeatTimer != null && _heartbeatTimer!.isActive) {
+      _heartbeatTimer!.cancel();
       _heartbeatTimer = null;
     }
   }

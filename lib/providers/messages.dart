@@ -10,19 +10,19 @@ export 'models.dart';
 class MessageProvider with ChangeNotifier {
   final PubNub pubnub;
   final Subscription subscription;
-  List<ChatMessage> _messages;
+  late List<ChatMessage> _messages;
 
   List<ChatMessage> get messages =>
       ([..._messages]..sort((m1, m2) => m2.timetoken.compareTo(m1.timetoken)))
           .toList();
 
   MessageProvider._(this.pubnub, this.subscription) {
-    _messages = [...AppData.conversations];
+    _messages = [...AppData.conversations!];
 
     subscription.messages.listen((m) {
       if (m.messageType == MessageType.normal) {
         _addMessage(ChatMessage(
-            timetoken: m.originalMessage['p']['t'],
+            timetoken: '${m.publishedAt}',
             channel: m.channel,
             uuid: m.uuid.value,
             message: m.content));

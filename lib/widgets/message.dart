@@ -34,7 +34,7 @@ class Message extends StatelessWidget {
               ],
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(sender.profileUrl),
+              backgroundImage: NetworkImage(sender.profileUrl!),
             ),
           ),
           Column(
@@ -45,16 +45,16 @@ class Message extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      sender.name,
+                      sender.name!,
                       textAlign: TextAlign.right,
                       style: Theme.of(context).textTheme.bodyText2,
                     ),
                     SizedBox(width: 10), // Time
                     Text(
-                      ('${DateFormat.jm().format(DateTime.fromMillisecondsSinceEpoch(int.parse(message.timetoken)))}'),
+                      getMessageTimeStamp(int.parse(message.timetoken)),
                       style: Theme.of(context)
                           .textTheme
-                          .caption
+                          .caption!
                           .apply(color: Colors.grey),
                     ),
                   ],
@@ -63,7 +63,7 @@ class Message extends StatelessWidget {
               Container(
                 margin: EdgeInsets.all(10),
                 constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width * .6),
+                    maxWidth: MediaQuery.of(context).size.width * 0.7),
                 padding: const EdgeInsets.all(15.0),
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -75,7 +75,7 @@ class Message extends StatelessWidget {
                 ),
                 child: Text(
                   message.message['text'],
-                  style: Theme.of(context).textTheme.bodyText2.apply(
+                  style: Theme.of(context).textTheme.bodyText2!.apply(
                         color: Colors.black87,
                       ),
                 ),
@@ -106,7 +106,7 @@ class Message extends StatelessWidget {
     else if (attachment['type'] == 'link') {
       return GestureDetector(
         onTap: () async => await launch(attachment['provider']['url'],
-            forceSafariVC: true, forceWebView: true),
+            forceSafariVC: true, forceWebView: true, enableJavaScript: true),
         child: Container(
           decoration: BoxDecoration(
               color: Colors.white,
@@ -118,8 +118,8 @@ class Message extends StatelessWidget {
           margin: EdgeInsets.only(left: 10),
           padding: EdgeInsets.all(5),
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.8,
-            maxHeight: 130,
+            maxWidth: MediaQuery.of(context).size.width * 0.75,
+            maxHeight: 150,
           ),
           child: Row(
             children: [
@@ -160,7 +160,7 @@ class Message extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.only(left: 5),
                     constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.6),
+                        maxWidth: MediaQuery.of(context).size.width * 0.5),
                     child: Text(
                       attachment['title'],
                       style: TextStyle(color: Colors.blue),
@@ -172,12 +172,12 @@ class Message extends StatelessWidget {
                       top: 5,
                     ),
                     constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.6),
+                        maxWidth: MediaQuery.of(context).size.width * 0.5),
                     child: Text(
                       attachment['description'],
                       style: Theme.of(context)
                           .textTheme
-                          .caption
+                          .caption!
                           .apply(color: Colors.grey),
                     ),
                   )
@@ -190,4 +190,7 @@ class Message extends StatelessWidget {
     } else
       return Container();
   }
+
+  String getMessageTimeStamp(int timetoken) =>
+      '${DateFormat.jm().format(DateTime.fromMicrosecondsSinceEpoch(timetoken ~/ 10, isUtc: true).toLocal())}';
 }

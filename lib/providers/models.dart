@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart' show required;
-
 class ChatMessage {
   final String timetoken;
   final String channel;
@@ -7,10 +5,10 @@ class ChatMessage {
   final Map message;
 
   ChatMessage(
-      {@required this.timetoken,
-      @required this.channel,
-      @required this.uuid,
-      @required this.message});
+      {required this.timetoken,
+      required this.channel,
+      required this.uuid,
+      required this.message});
 
   factory ChatMessage.fromJson(Map json) => ChatMessage(
       timetoken: json['timetoken'],
@@ -21,12 +19,11 @@ class ChatMessage {
 
 class Space {
   final String name;
-  final Map custom;
-  final String description;
+  final Map? custom;
+  final String? description;
   final String id;
 
-  Space(
-      {@required this.name, @required this.id, this.description, this.custom});
+  Space({required this.name, required this.id, this.description, this.custom});
 
   factory Space.fromJson(Map json) => Space(
       name: json['name'],
@@ -36,12 +33,12 @@ class Space {
 }
 
 class UserProfile {
-  final String name;
+  final String? name;
   final String uuid;
-  final String profileUrl;
-  final Map custom;
+  final String? profileUrl;
+  final Map? custom;
 
-  UserProfile({@required this.uuid, this.profileUrl, this.name, this.custom});
+  UserProfile({required this.uuid, this.profileUrl, this.name, this.custom});
 
   factory UserProfile.fromJson(Map json) => UserProfile(
       uuid: json['id'],
@@ -54,5 +51,5 @@ class Signal {
   final String message;
   final String sender;
 
-  Signal({@required this.message, @required this.sender});
+  Signal({required this.message, required this.sender});
 }

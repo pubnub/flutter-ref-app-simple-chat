@@ -16,18 +16,18 @@ class AppData {
     'space_efc5b3ef96ea4bffbde733e249c8cbb3'
   };
   static const INDICATORTIMEOUT = 10;
-  static List<UserProfile> _users;
-  static UserProfile _currentUser;
-  static List<Space> _spaces;
-  static List<Space> _directChats;
-  static List<ChatMessage> _conversations;
-  static UserProfile get currentUser => _currentUser;
-  static Space get defaultSpace => _spaces.first;
-  static List<Space> get spaces => _spaces;
-  static List<Space> get directChats => _directChats;
-  static List<Space> get allSpaces => [..._spaces, ..._directChats];
-  static List<UserProfile> get users => [..._users];
-  static List<ChatMessage> get conversations => _conversations;
+  static List<UserProfile>? _users;
+  static UserProfile? _currentUser;
+  static List<Space>? _spaces;
+  static List<Space>? _directChats;
+  static List<ChatMessage>? _conversations;
+  static UserProfile? get currentUser => _currentUser;
+  static Space? get defaultSpace => _spaces!.first;
+  static List<Space>? get spaces => _spaces;
+  static List<Space>? get directChats => _directChats;
+  static List<Space>? get allSpaces => [..._spaces!, ..._directChats!];
+  static List<UserProfile>? get users => [..._users!];
+  static List<ChatMessage>? get conversations => _conversations;
 
   static init() async {
     const String DIRECTORY = 'assets/setup';
@@ -50,7 +50,7 @@ class AppData {
 
     _directChats = directs.map((space) => Space.fromJson(space)).toList();
 
-    _currentUser = _users[Random().nextInt(_users.length - 4)];
+    _currentUser = _users![Random().nextInt(_users!.length - 4)];
 
     _conversations = chatMessages
         .map((conversation) => ChatMessage.fromJson(conversation))
@@ -59,15 +59,15 @@ class AppData {
 
   static UserProfile getUserById(String uuid) {
     if (uuid == 'current_user') {
-      return currentUser;
+      return currentUser!;
     }
-    return users.firstWhere((user) => (user.uuid == uuid));
+    return users!.firstWhere((user) => (user.uuid == uuid));
   }
 
-  static Space getSpaceById(String id) {
+  static Space getSpaceById(String? id) {
     if (id == null) {
-      return defaultSpace;
+      return defaultSpace!;
     }
-    return allSpaces.firstWhere((space) => space.id == id);
+    return allSpaces!.firstWhere((space) => space.id == id);
   }
 }

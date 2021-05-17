@@ -8,16 +8,16 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   provider: ^5.0.0    
-  intl: ^0.17.0  
-  pubnub: ^3.1.0
-  emoji_picker: ^0.1.0
-  flutter_dotenv: ^3.1.0
+  intl: ^0.17.0 
+  pubnub: ^4.0.0-beta.0
+  emoji_picker_flutter: ^1.0.5
+  flutter_dotenv: ^4.0.0-nullsafety.1
   url_launcher: ^6.0.3
   cupertino_icons: ^1.0.2
 

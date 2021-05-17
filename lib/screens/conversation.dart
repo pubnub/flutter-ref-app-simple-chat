@@ -22,8 +22,10 @@ class _ConversationState extends State<Conversation> {
   @override
   Widget build(BuildContext context) {
     messageProvider = Provider.of<MessageProvider>(context, listen: false);
-    final space = AppData.getSpaceById(
-        ModalRoute.of(context).settings.arguments as String);
+    var spaceId = ModalRoute.of(context)!.settings.arguments != null
+        ? ModalRoute.of(context)!.settings.arguments as String
+        : null;
+    final space = AppData.getSpaceById(spaceId);
 
     return Scaffold(
         key: _scaffoldKey,
@@ -44,7 +46,7 @@ class _ConversationState extends State<Conversation> {
             IconButton(
                 icon: Icon(Icons.people_outline),
                 onPressed: () {
-                  _scaffoldKey.currentState.openEndDrawer();
+                  _scaffoldKey.currentState!.openEndDrawer();
                 })
           ],
           leading: Row(
@@ -52,7 +54,7 @@ class _ConversationState extends State<Conversation> {
               IconButton(
                   icon: Icon(Icons.arrow_back_ios_rounded),
                   onPressed: () {
-                    _scaffoldKey.currentState.openDrawer();
+                    _scaffoldKey.currentState!.openDrawer();
                   }),
             ],
           ),
@@ -70,5 +72,11 @@ class _ConversationState extends State<Conversation> {
               }
             },
             child: ChatBody(space)));
+  }
+
+  @override
+  void dispose() {
+    Provider.of<MessageProvider>(context, listen: false).dispose();
+    super.dispose();
   }
 }

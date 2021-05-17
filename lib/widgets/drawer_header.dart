@@ -5,9 +5,9 @@ class AppDrawerHeader extends StatelessWidget {
   final String description;
   final String profileUrl;
   AppDrawerHeader(
-      {@required this.userName,
-      @required this.description,
-      @required this.profileUrl});
+      {required this.userName,
+      required this.description,
+      required this.profileUrl});
   @override
   Widget build(BuildContext context) {
     return DrawerHeader(
@@ -34,7 +34,7 @@ class AppDrawerHeader extends StatelessWidget {
               Text(description,
                   style: Theme.of(context)
                       .textTheme
-                      .caption
+                      .caption!
                       .apply(color: Colors.grey))
             ],
           ),

@@ -20,11 +20,11 @@ class PresenceProvider with ChangeNotifier {
     chatSubscription.presence.listen((presenceEvent) {
       switch (presenceEvent.action) {
         case PresenceAction.join:
-          _addOnlineUser(presenceEvent.uuid.value);
+          _addOnlineUser(presenceEvent.uuid!.value);
           break;
         case PresenceAction.leave:
         case PresenceAction.timeout:
-          _removeOnlineUser(presenceEvent.uuid.value);
+          _removeOnlineUser(presenceEvent.uuid!.value);
           break;
         case PresenceAction.stateChange:
           break;
@@ -34,10 +34,12 @@ class PresenceProvider with ChangeNotifier {
           }
           if (presenceEvent.join.length > 0) {
             _onlineUsers.removeAll(presenceEvent.leave
-                .where((id) => id.value != AppData.currentUser.uuid)
+                .where((id) => id.value != AppData.currentUser!.uuid)
                 .map((uuid) => uuid.value));
           }
           notifyListeners();
+          break;
+        default:
           break;
       }
     });
@@ -48,8 +50,7 @@ class PresenceProvider with ChangeNotifier {
     var result = await pubnub.hereNow(channelGroups: {AppData.CHANNELGROUP});
     _onlineUsers.addAll(result.channels.values
         .expand((c) => c.uuids.values)
-        .map((uuid) => uuid.value)
-        .toSet());
+        .map((occupantInfo) => occupantInfo.uuid));
   }
 
   void _addOnlineUser(String uuid) {
@@ -58,7 +59,7 @@ class PresenceProvider with ChangeNotifier {
   }
 
   void _removeOnlineUser(String uuid) {
-    if (uuid != AppData.currentUser.uuid) {
+    if (uuid != AppData.currentUser!.uuid) {
       _onlineUsers.remove((uuid));
       notifyListeners();
     }

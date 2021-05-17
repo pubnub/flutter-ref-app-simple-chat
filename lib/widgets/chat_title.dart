@@ -13,7 +13,7 @@ class ChatTitle extends StatelessWidget {
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: space.description.isNotEmpty
+          mainAxisAlignment: space.description!.isNotEmpty
               ? MainAxisAlignment.center
               : MainAxisAlignment.start,
           children: [
@@ -21,11 +21,11 @@ class ChatTitle extends StatelessWidget {
               space.name,
               style: TextStyle(color: Colors.black),
             ),
-            space.description.isNotEmpty
-                ? Text(space.description,
+            space.description!.isNotEmpty
+                ? Text(space.description!,
                     style: Theme.of(context)
                         .textTheme
-                        .caption
+                        .caption!
                         .apply(color: Colors.grey))
                 : Container()
           ],

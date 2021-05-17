@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:emoji_picker/emoji_picker.dart';
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 
 import '../providers/app_data.dart';
 import '../providers/messages.dart';
@@ -19,8 +19,8 @@ class NewMessageWidget extends StatefulWidget {
 class _NewMessageWidgetState extends State<NewMessageWidget> {
   final _controller = TextEditingController();
   bool showEmojipicker = false;
-  MessageProvider messageProvider;
-  DateTime typingTimestamp;
+  MessageProvider? messageProvider;
+  DateTime? typingTimestamp;
 
   @override
   void initState() {
@@ -89,7 +89,9 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
         ),
         showEmojipicker
             ? Container(
-                margin: EdgeInsets.only(bottom: 10), child: selectEmoji())
+                height: MediaQuery.of(context).size.height * .3,
+                margin: EdgeInsets.only(bottom: 10),
+                child: selectEmoji())
             : Container(),
       ],
     );
@@ -97,9 +99,9 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   Widget selectEmoji() {
     return EmojiPicker(
-        rows: 4,
-        columns: 7,
-        onEmojiSelected: (emoji, category) {
+        config: Config(
+            columns: 9, emojiSizeMax: 25, initCategory: Category.SMILEYS),
+        onEmojiSelected: (_, emoji) {
           setState(() {
             _controller.text = _controller.text + emoji.emoji;
           });
@@ -108,20 +110,20 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
 
   void _sendSignal() async {
     if (_controller.text.isEmpty) {
-      await messageProvider.sendSignal('typing_off', widget.spaceId);
+      await messageProvider!.sendSignal('typing_off', widget.spaceId);
     } else if ((typingTimestamp == null ||
             _controller.text.length == 1 ||
-            DateTime.now().difference(typingTimestamp).inSeconds >=
-                AppData.INDICATORTIMEOUT - 1) &&
+            DateTime.now().difference(typingTimestamp!).inSeconds >=
+                AppData.INDICATORTIMEOUT) &&
         _controller.text.isNotEmpty) {
-      await messageProvider.sendSignal('typing_on', widget.spaceId);
+      await messageProvider!.sendSignal('typing_on', widget.spaceId);
       typingTimestamp = DateTime.now();
     }
   }
 
   void _sendMessage() async {
     if (_controller.text.isNotEmpty) {
-      await messageProvider.sendMessage(widget.spaceId, _controller.text);
+      await messageProvider!.sendMessage(widget.spaceId, _controller.text);
       setState(() {
         FocusScope.of(context).unfocus();
         _controller.clear();
