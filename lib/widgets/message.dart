@@ -34,7 +34,7 @@ class Message extends StatelessWidget {
               ],
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(sender.profileUrl!),
+              backgroundImage: AssetImage(sender.profileUrl!),
             ),
           ),
           Column(

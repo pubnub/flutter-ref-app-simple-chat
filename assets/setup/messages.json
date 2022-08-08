@@ -13,7 +13,7 @@
             "type": "image",
             "image": {
               "source":
-                  "https://pubnub.github.io/react-chat-components/samples/clouds.jpg"
+                  "https://raw.githubusercontent.com/pubnub/react-chat-components/4cfb86fb2b55962511f2f6dc0093a6d16b9757e0/samples/public/clouds.jpg"
             }
           }
         ]
@@ -130,7 +130,7 @@
             "type": "image",
             "image": {
               "source":
-                  "https://pubnub.github.io/react-chat-components/samples/pizza.jpg"
+                  "https://raw.githubusercontent.com/pubnub/react-chat-components/4cfb86fb2b55962511f2f6dc0093a6d16b9757e0/samples/public/pizza.jpg"
             }
           }
         ]

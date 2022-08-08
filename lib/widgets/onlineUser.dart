@@ -16,7 +16,7 @@ class OnlineUser extends StatelessWidget {
           height: 40,
           decoration: BoxDecoration(shape: BoxShape.circle),
           child: CircleAvatar(
-            backgroundImage: NetworkImage(user.profileUrl!),
+            backgroundImage: AssetImage(user.profileUrl!),
           ),
         ),
         SizedBox(width: 20),

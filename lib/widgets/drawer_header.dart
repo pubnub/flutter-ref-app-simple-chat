@@ -20,7 +20,7 @@ class AppDrawerHeader extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(profileUrl),
+              backgroundImage: AssetImage(profileUrl),
             ),
           ),
           SizedBox(

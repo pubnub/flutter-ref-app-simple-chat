@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 
 import '../providers/app_data.dart';
@@ -60,13 +61,16 @@ class _NewMessageWidgetState extends State<NewMessageWidget> {
                   ),
                   child: Row(
                     children: <Widget>[
-                      IconButton(
-                          icon: Icon(Icons.emoji_emotions_outlined),
-                          onPressed: () {
-                            setState(() {
-                              showEmojipicker = !showEmojipicker;
-                            });
-                          }),
+                      kIsWeb
+                          ? IconButton(
+                              icon: Icon(Icons.abc_sharp), onPressed: () {})
+                          : IconButton(
+                              icon: Icon(Icons.emoji_emotions_outlined),
+                              onPressed: () {
+                                setState(() {
+                                  showEmojipicker = !showEmojipicker;
+                                });
+                              }),
                       Expanded(
                         child: TextField(
                           autocorrect: false,
