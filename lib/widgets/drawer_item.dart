@@ -24,7 +24,7 @@ class DrawerListItem extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: CircleAvatar(
-              backgroundImage: NetworkImage(space.custom!['thumb']),
+              backgroundImage: AssetImage(space.custom!['thumb']),
             ),
           ),
           SizedBox(width: 5),

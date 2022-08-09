@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:pubnub/networking.dart';
 import 'package:pubnub/pubnub.dart';

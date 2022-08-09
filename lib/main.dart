@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart' as dotenv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'providers/pubnub_instance.dart';
 import 'providers/app_data.dart';
@@ -12,7 +12,7 @@ import 'screens/conversation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await AppData.init();
-  await dotenv.load();
+  await dotenv.load(fileName: '.env');
 
   runApp(MyApp());
 }

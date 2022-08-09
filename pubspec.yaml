@@ -13,13 +13,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  provider: ^5.0.0    
+  provider: ^6.0.3    
   intl: ^0.17.0 
-  pubnub: ^4.0.0-beta.0
-  emoji_picker_flutter: ^1.0.5
-  flutter_dotenv: ^4.0.0-nullsafety.1
-  url_launcher: ^6.0.3
-  cupertino_icons: ^1.0.2
+  pubnub: ^4.2.1
+  emoji_picker_flutter: ^1.3.1
+  flutter_dotenv: ^5.0.2
+  url_launcher: ^6.1.5
+  cupertino_icons: ^1.0.5
 
 dev_dependencies:
   flutter_test:
@@ -30,4 +30,8 @@ flutter:
 
   assets:
     - assets/setup/
+    - assets/images/men/
+    - assets/images/women/
+    - assets/images/spaces/
     - .env
+
